@@ -96,7 +96,7 @@ $feeds = $api->streamSocialFeeds('STREAM_ID');
 #### Create social feed under a particular stream
 
 ```php
-$feed = $api->createStreamSocialFeed('STREAM_ID', '@youtube', 'twitter', [
+$feed = $api->createStreamSocialFeed('STREAM_ID', '@thoughtchimp', 'twitter', [
   'status'          => 'published',
   'tags'            => 'entertainment, video service, fun',
   'exclude.mentions'=> true,
