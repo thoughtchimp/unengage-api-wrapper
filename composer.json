@@ -1,0 +1,22 @@
+{
+  "name": "thoughtchimp/unengage-api-wrapper",
+  "description": "Unengage api wrapper",
+  "keywords": ["unengage","api","wrapper","sdk"],
+  "homepage": "https://github.com/thoughtchimp/unengage-api-wrapper",
+  "authors": [
+    {
+      "name": "Thought Chimp",
+      "homepage": "https://thoughtchimp.com"
+    }
+  ],
+  "license" : "MIT",
+  "require": {
+    "php": ">=5.5",
+    "guzzlehttp/guzzle": "~6.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Unengage\\": "src/Unengage"
+    }
+  }
+}
