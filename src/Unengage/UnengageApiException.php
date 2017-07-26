@@ -1,5 +1,5 @@
 <?php
-namespace App\Libraries\Unengage;
+namespace Unengage;
 
 class UnengageApiException extends \Exception
 {
