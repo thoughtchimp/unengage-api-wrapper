@@ -161,8 +161,7 @@ class API extends Client
                 ]
             ], $options));
 
-            $response = json_decode($request->getBody(),true);
-            return collection($response);
+            return json_decode($request->getBody(),true);
         } catch(ClientException $e) {
             throw new UnengageApiException($e->getCode(), $e->getResponse()->getBody()->getContents());
         }
