@@ -125,6 +125,11 @@ class API extends Client
             'auth.token'    => $token
         ], $params));
     }
+    
+    public function deleteStreamSocialAccount($stream_id, $account_id)
+    {
+        return $this->_post("/streams/$stream_id/social_accounts/$account_id/delete");
+    }
 
     public function testWebhook($type, array $params=[])
     {
