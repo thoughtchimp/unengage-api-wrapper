@@ -10,10 +10,10 @@ class API extends Client
     protected $curlOptions = [];
     protected $api_key;
 
-    public function __construct($api_key)
+    public function __construct($api_key, $base_url=null)
     {
-        if(!empty(env('UNENGAGE_API_URL'))) {
-            $this->base_url = env('UNENGAGE_API_URL');
+        if(!is_null($base_url)) {
+            $this->base_url = $base_url;
         }
         
         $this->api_key = $api_key;
@@ -39,14 +39,14 @@ class API extends Client
         ], $params));
     }
 
-    public function stream($stream_id)
+    public function stream($stream_id, array $params=[])
     {
-        return $this->_get("/streams/$stream_id");
+        return $this->_get("/streams/$stream_id", $params);
     }
 
-    public function deleteStream($stream_id)
+    public function deleteStream($stream_id, array $params=[])
     {
-        return $this->_post("/streams/$stream_id/delete");
+        return $this->_post("/streams/$stream_id/delete", $params);
     }
 
     public function streamSocialPosts($stream_id, array $params=[])
@@ -65,16 +65,16 @@ class API extends Client
         ], $params));
     }
 
-    public function deleteStreamSocialPosts($stream_id, array $post_ids)
+    public function deleteStreamSocialPosts($stream_id, array $post_ids, array $params=[])
     {
-        return $this->_post("/streams/$stream_id/social_posts/delete", [
+        return $this->_post("/streams/$stream_id/social_posts/delete", array_merge([
             'ids' => json_encode($post_ids)
-        ]);
+        ],$params));
     }
 
-    public function pinStreamSocialPost($stream_id, $post_id)
+    public function pinStreamSocialPost($stream_id, $post_id, array $params=[])
     {
-        return $this->_post("/streams/$stream_id/social_posts/$post_id/pin");
+        return $this->_post("/streams/$stream_id/social_posts/$post_id/pin", $params);
     }
 
     public function streamSocialFeeds($stream_id, array $params=[])
@@ -90,9 +90,9 @@ class API extends Client
         ], $params));
     }
 
-    public function streamSocialFeed($stream_id, $feed_id)
+    public function streamSocialFeed($stream_id, $feed_id, array $params=[])
     {
-        return $this->_get("/streams/$stream_id/social_feeds/$feed_id");
+        return $this->_get("/streams/$stream_id/social_feeds/$feed_id", $params);
     }
 
     public function updateStreamSocialFeed($stream_id, $feed_id, array $params)
@@ -100,14 +100,14 @@ class API extends Client
         return $this->_post("/streams/$stream_id/social_feeds/$feed_id/update", $params);
     }
 
-    public function deleteStreamSocialFeed($stream_id, $feed_id)
+    public function deleteStreamSocialFeed($stream_id, $feed_id, array $params=[])
     {
-        return $this->_post("/streams/$stream_id/social_feeds/$feed_id/delete");
+        return $this->_post("/streams/$stream_id/social_feeds/$feed_id/delete", $params);
     }
 
-    public function refreshStreamSocialFeed($stream_id, $feed_id)
+    public function refreshStreamSocialFeed($stream_id, $feed_id, array $params=[])
     {
-        return $this->_post("/streams/$stream_id/social_feeds/$feed_id/refresh");
+        return $this->_post("/streams/$stream_id/social_feeds/$feed_id/refresh", $params);
     }
 
     public function streamSocialAccounts($stream_id, array $params=[])
@@ -126,9 +126,9 @@ class API extends Client
         ], $params));
     }
     
-    public function deleteStreamSocialAccount($stream_id, $account_id)
+    public function deleteStreamSocialAccount($stream_id, $account_id, array $params=[])
     {
-        return $this->_post("/streams/$stream_id/social_accounts/$account_id/delete");
+        return $this->_post("/streams/$stream_id/social_accounts/$account_id/delete", $params);
     }
 
     public function testWebhook($type, array $params=[])
@@ -143,9 +143,6 @@ class API extends Client
         return $this->_request('GET', $endpoint, [
             'query' => $params
         ]);
-
-        /*$url = $this->base_url.$endpoint.'?'.http_build_query($params);
-        return collection(json_decode(file_get_contents($url), true));*/
     }
 
     public function _post($endpoint, array $params=[])
