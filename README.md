@@ -64,6 +64,23 @@ $posts = $api->streamSocialPosts('STREAM_ID', [
 ]);
 ```
 
+#### Get stream social post preview by passing stream id, platform & post_url
+
+```php
+$post = $api->streamSocialPostPreview('STREAM_ID', 'platform goest here ex: twitter', 'post_url goes here ex: twitter post url');
+```
+
+#### Create stream social post by passing stream id, platform & post_url
+
+```php
+$post = $api->streamSocialPostCreate('STREAM_ID', 'platform goest here ex: twitter', 'post_url goes here ex: twitter post url', [
+  'tags'        => 'social, digital',
+  'is_pin'      => true,
+  'is_sponsored'=> false,
+  'status'      => 'published'
+]);
+```
+
 #### Update social posts of a stream by passing post ids
 
 ```php
