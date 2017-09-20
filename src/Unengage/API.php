@@ -19,7 +19,8 @@ class API extends Client
         $this->api_key = $api_key;
         parent::__construct();
     }
-    
+
+    /* Stream Actions */
     public function streams(array $params=[])
     {
         return $this->_get("/streams", $params);
@@ -49,6 +50,7 @@ class API extends Client
         return $this->_post("/streams/$stream_id/delete", $params);
     }
 
+    /* Social Post Actions */
     public function streamSocialPosts($stream_id, array $params=[])
     {
         if(isset($params['page_token']) && !empty($params['page_token'])) {
@@ -56,6 +58,22 @@ class API extends Client
         }
         
         return $this->_get("/streams/$stream_id/social_posts", $params);
+    }
+
+    public function streamSocialPostPreview($stream_id, $platform, $post_url, array $params=[])
+    {
+        return $this->_get("/streams/$stream_id/social_posts/preview", array_merge([
+            'platform'  => $platform,
+            'post_url'  => $post_url
+        ], $params));
+    }
+
+    public function streamSocialPostCreate($stream_id, $platform, $post_url, array $params=[])
+    {
+        return $this->_post("/streams/$stream_id/social_posts/create", array_merge([
+            'platform'  => $platform,
+            'post_url'  => $post_url
+        ], $params));
     }
 
     public function updateStreamSocialPosts($stream_id, array $post_ids, array $params)
@@ -77,6 +95,7 @@ class API extends Client
         return $this->_post("/streams/$stream_id/social_posts/$post_id/pin", $params);
     }
 
+    /* Social Feed Actions */
     public function streamSocialFeeds($stream_id, array $params=[])
     {
         return $this->_get("/streams/$stream_id/social_feeds", $params);
@@ -110,6 +129,7 @@ class API extends Client
         return $this->_post("/streams/$stream_id/social_feeds/$feed_id/refresh", $params);
     }
 
+    /* Social Account Actions */
     public function streamSocialAccounts($stream_id, array $params=[])
     {
         return $this->_get("/streams/$stream_id/social_accounts", $params);
@@ -131,6 +151,7 @@ class API extends Client
         return $this->_post("/streams/$stream_id/social_accounts/$account_id/delete", $params);
     }
 
+    /* Webhook Actions */
     public function testWebhook($type, array $params=[])
     {
         return $this->_post('/webhook_test', array_merge([
@@ -138,6 +159,7 @@ class API extends Client
         ],$params));
     }
 
+    /* Common Request Functions */
     public function _get($endpoint, array $params=[])
     {
         return $this->_request('GET', $endpoint, [
