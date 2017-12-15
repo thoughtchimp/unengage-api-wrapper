@@ -60,10 +60,9 @@ class API extends Client
         return $this->_get("/streams/$stream_id/social_posts", $params);
     }
 
-    public function streamSocialPostPreview($stream_id, $platform, $post_url, array $params=[])
+    public function streamSocialPostPreview($stream_id, $post_url, array $params=[])
     {
         return $this->_get("/streams/$stream_id/social_posts/preview", array_merge([
-            'platform'  => $platform,
             'post_url'  => $post_url
         ], $params));
     }
